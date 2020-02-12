@@ -21,7 +21,7 @@ import java.util.Map;
 public class FootService {
     @Autowired
     private GlobalProperties globalProperties;
-    public String getForEntityOperation() {
+    public List<team_retour> getForEntityOperation() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", "d9c19fdaf9b64f21a09c372e83bcd170");
@@ -29,42 +29,10 @@ public class FootService {
         String url = "http://api.football-data.org/v2/competitions/2001/teams";
         HttpEntity entity = new HttpEntity(headers);
         Reponse rep = restTemplate.exchange(url, HttpMethod.GET, entity, Reponse.class).getBody();
-        return "duck " +rep.teams.size();
+        return rep.getTeams();
 
     }
 
-}
-
-class team_retour{
-    public Long id;
-    public String name;
-    public String pays;
-    public team_retour() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPays() {
-        return pays;
-    }
-
-    public void setPays(String pays) {
-        this.pays = pays;
-    }
 }
 
 @JsonIgnoreProperties
